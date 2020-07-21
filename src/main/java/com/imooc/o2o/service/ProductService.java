@@ -9,6 +9,17 @@ import com.imooc.o2o.entity.Product;
 import com.imooc.o2o.exceptions.ProductOperationException;
 
 public interface ProductService {
+	/**
+	 * get product by id
+	 * 
+	 * @param productId
+	 * @return product object
+	 */
+	Product getProductById(long productId);
+
+	ProductExecution modifyProduct(Product product, ImageHolder thumbnail, List<ImageHolder> productImgList)
+			throws ProductOperationException;
+
 	ProductExecution addProduct(Product product, ImageHolder thumbnail, List<ImageHolder> productImgList)
 			throws ProductOperationException;
 

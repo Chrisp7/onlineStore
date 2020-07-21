@@ -28,6 +28,59 @@ public class ProductServiceImpl implements ProductService {
 	private ProductImgDao productImgDao;
 
 	@Override
+	public Product getProductById(long productId) {
+		return productDao.queryProductById(productId);
+	}
+
+	@Override
+	// 1.若缩略图参数有值，则处理缩略图
+	// 若原先存在缩略图则先删除在添加新图，之后获取缩略图相对路径并赋值给product
+	// 2.若商品详情图列表参数有值，对商品详情图片列表进行同样的操作
+	// 3.将tb_product_img下面的该商品原先的商品详情记录全部删除
+	// 4.更新tb_product_img和tb_product的信息
+	public ProductExecution modifyProduct(Product product, ImageHolder thumbnail,
+			List<ImageHolder> productImgHolderList) throws ProductOperationException {
+		if (product != null && product.getShop() != null && product.getShop().getShopId() != null) {
+			product.setLastEditTime(new Date());
+			if (thumbnail != null) {
+				Product tempProduct = productDao.queryProductById(product.getProductId());
+				if (tempProduct.getImgAddr() != null) {
+					ImageUtil.deleteFileOrPath(tempProduct.getImgAddr());
+				}
+				addThumbnail(product, thumbnail);
+			}
+			if (productImgHolderList != null && productImgHolderList.size() > 0) {
+				deleteProductImgList(product.getProductId());
+				addProductImgList(product, productImgHolderList);
+			}
+			try {
+				int effectNum = productDao.updateProduct(product);
+				if (effectNum <= 0) {
+					throw new ProductOperationException("更新商品信息失败");
+				}
+				return new ProductExecution(ProductStateEnum.SUCCESS, product);
+			} catch (Exception e) {
+				throw new ProductOperationException("更新商品失败：" + e.toString());
+			}
+
+		} else {
+			return new ProductExecution(ProductStateEnum.EMPTY);
+		}
+	}
+
+	private void deleteProductImgList(Long productId) {
+		// get all the detailed images from database stored before
+		List<ProductImg> productImgList = productImgDao.queryProductImgList(productId);
+		// delete all the images physically
+		for (ProductImg productImg : productImgList) {
+			ImageUtil.deleteFileOrPath(productImg.getImgAddr());
+		}
+		// delete all the images from database
+		productImgDao.deleteProductImgByProductId(productId);
+
+	}
+
+	@Override
 	@Transactional
 	// 1.处理缩略图，获取缩略图相对路径并赋值给product
 	// 2.往tb_product写入商品信息，获取productId
@@ -71,6 +124,7 @@ public class ProductServiceImpl implements ProductService {
 		String thumbnailAddr = ImageUtil.generateThumbnail(thumbnail, dest);
 		product.setImgAddr(thumbnailAddr);
 	}
+
 	private void addProductImgList(Product product, List<ImageHolder> productImgHolderList) {
 		// 获取图片存储路径，这里直接存放到相应店铺的文件夹底下
 		String dest = PathUtil.getShopImagePath(product.getShop().getShopId());
@@ -96,4 +150,5 @@ public class ProductServiceImpl implements ProductService {
 			}
 		}
 	}
+
 }
