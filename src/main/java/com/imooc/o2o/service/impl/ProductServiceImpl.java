@@ -18,6 +18,7 @@ import com.imooc.o2o.enums.ProductStateEnum;
 import com.imooc.o2o.exceptions.ProductOperationException;
 import com.imooc.o2o.service.ProductService;
 import com.imooc.o2o.util.ImageUtil;
+import com.imooc.o2o.util.PageCalculator;
 import com.imooc.o2o.util.PathUtil;
 
 @Service
@@ -149,6 +150,17 @@ public class ProductServiceImpl implements ProductService {
 				throw new ProductOperationException("创建商品详情图片失败:" + e.toString());
 			}
 		}
+	}
+
+	@Override
+	public ProductExecution getProductlist(Product productCondition, int pageIndex, int pageSize) {
+		int rowIndex = PageCalculator.calculateRowIndex(pageIndex, pageSize);
+		List<Product> productList = productDao.queryProductList(productCondition, rowIndex, pageSize);
+		int count = productDao.queryProductCount(productCondition);
+		ProductExecution pe = new ProductExecution();
+		pe.setProductList(productList);
+		pe.setCount(count);
+		return pe;
 	}
 
 }

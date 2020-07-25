@@ -202,7 +202,7 @@ public class ProductManagementController {
 		}
 		// if the product info and image detailed info is not null, then we can start
 		// adding these information
-		if (thumbnail != null && product != null && productImgList.size() > 0) {
+		if (product != null) {
 			try {
 				// get currentShop from session
 				Shop currentShop = (Shop) request.getSession().getAttribute("currentShop");
@@ -225,5 +225,48 @@ public class ProductManagementController {
 			modelMap.put("errMsg", "商品信息不足");
 		}
 		return modelMap;
+	}
+
+	@RequestMapping(value = "/getproductlistbyshop", method = RequestMethod.GET)
+	@ResponseBody
+	private Map<String, Object> getProductListByShop(HttpServletRequest request) {
+		Map<String, Object> modelMap = new HashMap<>();
+		// 获取前台传过来的页码
+		int pageIndex = HttpServletRequestUtil.getInt(request, "pageIndex");
+		// 获取前台传过来的每页要求返回的商品数上限
+		int pageSize = HttpServletRequestUtil.getInt(request, "pageSize");
+		// 从当前session中获取店铺信息，主要是获取shopId
+		Shop currentShop = (Shop) request.getSession().getAttribute("currentShop");
+		// 空值判断
+		if (pageIndex > -1 && pageSize > -1 && (currentShop != null) && (currentShop.getShopId() != null)) {
+			long productCategoryId = HttpServletRequestUtil.getLong(request, "productCategoryId");
+			String productName = HttpServletRequestUtil.getString(request, "productName");
+			Product productCondition = packProductCondition(currentShop.getShopId(), productCategoryId, productName);
+			ProductExecution pe = productService.getProductlist(productCondition, pageIndex, pageSize);
+			modelMap.put("productList", pe.getProductList());
+			modelMap.put("count", pe.getCount());
+			modelMap.put("success", true);
+		} else {
+			modelMap.put("success", false);
+			modelMap.put("errMsg", "empty pageSize or pageIndex or shopId");
+		}
+		return modelMap;
+
+	}
+
+	private Product packProductCondition(long shopId, long productCategoryId, String productName) {
+		Product productCondition = new Product();
+		Shop shop = new Shop();
+		shop.setShopId(shopId);
+		productCondition.setShop(shop);
+		if (productCategoryId > -1) {
+			ProductCategory productCategory = new ProductCategory();
+			productCategory.setProductCategoryId(productCategoryId);
+			productCondition.setProductCategory(productCategory);
+		}
+		if (productName != null) {
+			productCondition.setProductName(productName);
+		}
+		return productCondition;
 	}
 }
