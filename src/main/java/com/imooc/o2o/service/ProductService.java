@@ -24,6 +24,5 @@ public interface ProductService {
 			throws ProductOperationException;
 
 	ProductExecution getProductlist(Product productCondition, int pageIndex, int pageSize);
-	
 
 }

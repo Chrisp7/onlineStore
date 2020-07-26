@@ -10,14 +10,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.imooc.o2o.BaseTest;
 import com.imooc.o2o.entity.ShopCategory;
 
-public class ShopCategoryTest extends BaseTest{
+public class ShopCategoryTest extends BaseTest {
 	@Autowired
 	private ShopCategoryDao shopCategoryDao;
-	
+
 	@Test
-	public void testQuery () {
-		List<ShopCategory> shopCategoryList = shopCategoryDao.queryShopCategory(new ShopCategory());
-		assertEquals(1,shopCategoryList.size());
+	public void testQuery() {
+		List<ShopCategory> shopCategoryList = shopCategoryDao.queryShopCategory(null);
+		assertEquals(shopCategoryList.size(), 1);
 	}
-	
+
 }
