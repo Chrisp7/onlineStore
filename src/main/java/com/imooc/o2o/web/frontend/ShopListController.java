@@ -132,6 +132,7 @@ public class ShopListController {
 			// 查询名字里包含shopName的店铺列表
 			shopCondition.setShopName(shopName);
 		}
+		shopCondition.setEnableStatus(1);
 		return shopCondition;
 	}
 
