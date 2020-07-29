@@ -242,7 +242,7 @@ public class ProductManagementController {
 			long productCategoryId = HttpServletRequestUtil.getLong(request, "productCategoryId");
 			String productName = HttpServletRequestUtil.getString(request, "productName");
 			Product productCondition = packProductCondition(currentShop.getShopId(), productCategoryId, productName);
-			ProductExecution pe = productService.getProductlist(productCondition, pageIndex, pageSize);
+			ProductExecution pe = productService.getProductList(productCondition, pageIndex, pageSize);
 			modelMap.put("productList", pe.getProductList());
 			modelMap.put("count", pe.getCount());
 			modelMap.put("success", true);

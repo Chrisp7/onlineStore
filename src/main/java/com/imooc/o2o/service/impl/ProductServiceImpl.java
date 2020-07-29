@@ -153,7 +153,7 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public ProductExecution getProductlist(Product productCondition, int pageIndex, int pageSize) {
+	public ProductExecution getProductList(Product productCondition, int pageIndex, int pageSize) {
 		int rowIndex = PageCalculator.calculateRowIndex(pageIndex, pageSize);
 		List<Product> productList = productDao.queryProductList(productCondition, rowIndex, pageSize);
 		int count = productDao.queryProductCount(productCondition);
