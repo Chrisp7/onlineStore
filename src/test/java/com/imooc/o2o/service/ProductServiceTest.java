@@ -61,6 +61,7 @@ public class ProductServiceTest extends BaseTest {
 	}
 
 	@Test
+	@Ignore
 	public void testModifyProduct() throws FileNotFoundException {
 		// 创建shopId为1且productCategoryId为1的商品实例并给其成员变量赋值
 		Product product = new Product();

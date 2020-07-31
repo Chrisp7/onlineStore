@@ -35,6 +35,7 @@ public class ShopDaoTest extends BaseTest {
 	}
 
 	@Test
+	@Ignore
 	public void testQueryShopListAndCount() {
 		Shop shopCondition = new Shop();
 		PersonInfo owner = new PersonInfo();

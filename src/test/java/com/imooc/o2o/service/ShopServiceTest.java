@@ -26,6 +26,7 @@ public class ShopServiceTest extends BaseTest {
 	private ShopService shopService;
 
 	@Test
+	@Ignore
 	public void testQueryShopList() {
 		Shop shopCondition = new Shop();
 		PersonInfo owner = new PersonInfo();

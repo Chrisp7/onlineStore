@@ -10,7 +10,7 @@ public class PathUtil {
 		if (os.toLowerCase().startsWith("win")) {
 			basePath = "D:/projectdev/images/";
 		} else {
-			basePath = "/Users/patchen/ForDevTest/images";
+			basePath = "/Users/patchen/o2o/images";
 		}
 		basePath = basePath.replace("/", separator);
 		return basePath;

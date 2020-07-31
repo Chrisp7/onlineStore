@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import java.util.List;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -15,6 +16,7 @@ public class ShopCategoryTest extends BaseTest {
 	private ShopCategoryDao shopCategoryDao;
 
 	@Test
+	@Ignore
 	public void testQuery() {
 		List<ShopCategory> shopCategoryList = shopCategoryDao.queryShopCategory(null);
 		assertEquals(shopCategoryList.size(), 1);

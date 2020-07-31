@@ -21,6 +21,7 @@ public class ProductCategoryDaoTest extends BaseTest {
 	private ProductCategoryDao productCategoryDao;
 
 	@Test
+	@Ignore
 	public void testBQueryProductCategoryListById() {
 		long shopId = 1;
 		List<ProductCategory> productCategoryList = productCategoryDao.queryProductCategoryList(shopId);
