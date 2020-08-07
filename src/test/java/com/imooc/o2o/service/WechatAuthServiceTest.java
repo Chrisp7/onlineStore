@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import java.util.Date;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -19,6 +20,7 @@ public class WechatAuthServiceTest extends BaseTest {
 	private WechatAuthService wechatAuthService;
 
 	@Test
+	@Ignore
 	public void testRegister() {
 		// 新增一条微信帐号
 		WechatAuth wechatAuth = new WechatAuth();

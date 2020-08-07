@@ -5,6 +5,7 @@ import static org.junit.Assert.assertEquals;
 import java.util.Date;
 
 import org.junit.FixMethodOrder;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,7 @@ public class WechatAuthDaoTest extends BaseTest {
 	private WechatAuthDao wechatAuthDao;
 
 	@Test
+	@Ignore
 	public void testAInsertWechatAuth() throws Exception {
 		// 新增一条微信帐号
 		WechatAuth wechatAuth = new WechatAuth();
@@ -34,6 +36,7 @@ public class WechatAuthDaoTest extends BaseTest {
 	}
 
 	@Test
+	@Ignore
 	public void testBQueryWechatAuthByOpenId() throws Exception {
 		WechatAuth wechatAuth = wechatAuthDao.queryWechatInfoByOpenId("dafahizhfdhaih");
 		assertEquals("测试", wechatAuth.getPersonInfo().getName());
