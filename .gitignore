@@ -5,3 +5,4 @@
 catalina.base_IS_UNDEFINED/
 src/main/resources/jdbc.properties
 src/main/java/com/imooc/o2o/util/wechat/WechatUtil.java
+src/main/resources/redis.properties
