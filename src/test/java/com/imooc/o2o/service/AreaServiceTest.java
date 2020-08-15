@@ -22,8 +22,8 @@ public class AreaServiceTest extends BaseTest {
 	public void getAreaListTest() {
 		List<Area> areaList = areaService.getAreaList();
 		assertEquals(3, areaList.size());
-		cacheService.removeFromCache(areaService.AREALIST);
-		areaService.getAreaList();
+//		cacheService.removeFromCache(areaService.AREALIST);
+//		areaService.getAreaList();
 	}
 
 }
