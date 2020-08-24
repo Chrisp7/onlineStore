@@ -6,8 +6,9 @@ import java.security.SecureRandom;
 import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
 
-import sun.misc.BASE64Decoder;
-import sun.misc.BASE64Encoder;
+import java.util.Base64.Encoder;
+import java.util.Base64;
+import java.util.Base64.Decoder;
 
 /**
  * DES是一种对称加密算法，所谓对称加密算法即：加密和解密使用相同密钥的算法。
@@ -49,7 +50,7 @@ public class DESUtil {
 	 */
 	public static String getEncryptString(String str) {
 		// 基于BASE64编码，接收byte[]并转换成String
-		BASE64Encoder base64encoder = new BASE64Encoder();
+		Encoder base64encoder = Base64.getEncoder();
 		try {
 			// 按UTF8编码
 			byte[] bytes = str.getBytes(CHARSETNAME);
@@ -60,7 +61,7 @@ public class DESUtil {
 			// 加密
 			byte[] doFinal = cipher.doFinal(bytes);
 			// byte[]to encode好的String并返回
-			return base64encoder.encode(doFinal);
+			return base64encoder.encodeToString(doFinal);
 		} catch (Exception e) {
 			// TODO: handle exception
 			throw new RuntimeException(e);
@@ -75,10 +76,10 @@ public class DESUtil {
 	 */
 	public static String getDecryptString(String str) {
 		// 基于BASE64编码，接收byte[]并转换成String
-		BASE64Decoder base64decoder = new BASE64Decoder();
+		Decoder base64decoder = Base64.getDecoder();
 		try {
 			// 将字符串decode成byte[]
-			byte[] bytes = base64decoder.decodeBuffer(str);
+			byte[] bytes = base64decoder.decode(str);
 			// 获取解密对象
 			Cipher cipher = Cipher.getInstance(ALGORITHM);
 			// 初始化解密信息

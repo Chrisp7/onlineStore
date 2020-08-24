@@ -43,7 +43,7 @@ public class LocalAuthController {
 			return modelMap;
 		}
 		// get the username and password
-		String userName = HttpServletRequestUtil.getString(request, "username");
+		String userName = HttpServletRequestUtil.getString(request, "userName");
 		String password = HttpServletRequestUtil.getString(request, "password");
 		// get the userinfo from session
 		PersonInfo user = (PersonInfo) request.getSession().getAttribute("user");

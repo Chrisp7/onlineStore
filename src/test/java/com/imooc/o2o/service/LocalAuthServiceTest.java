@@ -48,7 +48,7 @@ public class LocalAuthServiceTest extends BaseTest {
 	}
 
 	@Test
-	//@Ignore
+	@Ignore
 	public void testBModifyLocalAuth() {
 		// 设置帐号信息
 		long userId = 1;

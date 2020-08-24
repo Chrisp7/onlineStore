@@ -56,6 +56,7 @@ $(function() {
 					if (loginCount >= 3) {
 						// 登录失败三次，需要做验证码校验
 						$('#verifyPart').show();
+						$('#captcha_img').click();
 					}
 				}
 			}
