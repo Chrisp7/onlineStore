@@ -70,17 +70,14 @@ public class ShopManagementController {
 	@ResponseBody
 	public Map<String, Object> getShopList(HttpServletRequest request) {
 		Map<String, Object> modelMap = new HashMap<>();
-		PersonInfo user = new PersonInfo();
-		user.setUserId(1L);
-		user.setName("test");
-		request.getSession().setAttribute("user", user);
-		user = (PersonInfo) request.getSession().getAttribute("user");
+		PersonInfo user = (PersonInfo) request.getSession().getAttribute("user");
 		try {
 			Shop shopCondition = new Shop();
 			shopCondition.setOwner(user);
 			ShopExecution se = shopService.getShopList(shopCondition, 0, 100);
 			modelMap.put("success", true);
 			modelMap.put("shopList", se.getShopList());
+			request.getSession().setAttribute("shopList", se.getShopList());
 			modelMap.put("user", user);
 		} catch (Exception e) {
 			modelMap.put("success", false);
