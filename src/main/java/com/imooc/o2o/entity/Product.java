@@ -19,7 +19,7 @@ public class Product {
 	// 权重，越大越排前显示
 	private Integer priority;
 	// 商品积分
-	//private Integer point;
+	private Integer point;
 	// 创建时间
 	private Date createTime;
 	// 最近一次的更新时间
@@ -114,13 +114,13 @@ public class Product {
 		this.enableStatus = enableStatus;
 	}
 
-//	public Integer getPoint() {
-//		return point;
-//	}
-//
-//	public void setPoint(Integer point) {
-//		this.point = point;
-//	}
+	public Integer getPoint() {
+		return point;
+	}
+
+	public void setPoint(Integer point) {
+		this.point = point;
+	}
 
 	public List<ProductImg> getProductImgList() {
 		return productImgList;
